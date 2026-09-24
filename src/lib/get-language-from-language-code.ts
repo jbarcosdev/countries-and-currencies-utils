@@ -1,19 +1,21 @@
-import ISO6391 from 'iso-639-1'
-
 export function getLanguageFromLanguageCode (isoCode?: string): { isoCode: string; name: string; nativeName: string } | undefined {
     if (!isoCode || typeof isoCode !== 'string' || isoCode.trim() === '') {
         return undefined
     }
 
-    isoCode = isoCode.trim().toLowerCase()
-    const name = ISO6391.getName(isoCode)
-    const nativeName = ISO6391.getNativeName(isoCode)
+    const code = isoCode.trim().toLowerCase()
 
-    if (!name || !nativeName) return undefined
+    try {
+        const nameFetcher = new Intl.DisplayNames(['en'], { type: 'language' })
+        const nativeFetcher = new Intl.DisplayNames([code], { type: 'language' })
 
-    return {
-        isoCode,
-        name,
-        nativeName,
+        const name = nameFetcher.of(code)
+        const nativeName = nativeFetcher.of(code)
+
+        if (!name || !nativeName || name === code) return undefined
+
+        return { isoCode: code, name, nativeName }
+    } catch {
+        return undefined
     }
 }
