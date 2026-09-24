@@ -10,9 +10,11 @@ export function getLanguageFromLanguageCode (isoCode?: string): { isoCode: strin
         const nativeFetcher = new Intl.DisplayNames([code], { type: 'language' })
 
         const name = nameFetcher.of(code)
-        const nativeName = nativeFetcher.of(code)
+        const rawNativeName = nativeFetcher.of(code)
 
-        if (!name || !nativeName || name === code) return undefined
+        if (!name || !rawNativeName || name === code) return undefined
+
+        const nativeName = rawNativeName.charAt(0).toUpperCase() + rawNativeName.slice(1)
 
         return { isoCode: code, name, nativeName }
     } catch {
