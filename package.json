@@ -33,5 +33,23 @@
   "engines": {
     "node": ">=22.0.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "keywords": [
+    "country",
+    "currency",
+    "utils",
+    "countries",
+    "currencies",
+    "money",
+    "currency utilities",
+    "typescript",
+    "library",
+    "nodejs",
+    "browser",
+    "deno"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbarcosdev/countries-and-currencies-utils.git"
+  }
 }
