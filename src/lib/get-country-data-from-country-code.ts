@@ -1,4 +1,4 @@
-import { countries } from '../data/countries-db'
+import { countries, CountryCode } from '../data'
 
 interface CountryData {
     name: string
@@ -15,7 +15,7 @@ interface CountryData {
     }
 }
 
-export function getCountryDataFromCountryCode (countryCode?: string): CountryData | undefined {
+export function getCountryDataFromCountryCode (countryCode?: CountryCode | (string & {})): CountryData | undefined {
     if (!countryCode) return undefined
 
     const country = countries[countryCode.toUpperCase()]
