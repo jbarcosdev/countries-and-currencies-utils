@@ -1,6 +1,6 @@
 import { CountryCode } from '../data'
 
-export function getCountryNameFromCountryCode(countryCode: CountryCode, lang = 'en') {
+export function getCountryNameFromCountryCode(countryCode: CountryCode | (string & {}), lang = 'en') {
     if (!countryCode || typeof countryCode !== 'string' || countryCode.length !== 2) {
         return undefined
     }
