@@ -1,4 +1,4 @@
-export function getTimezoneOffset (timezone: string): number {
+export function getTimezoneOffset (timezone: string | undefined): number {
     if (!timezone) return 0
 
     try {
