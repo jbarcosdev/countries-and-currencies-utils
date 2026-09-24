@@ -14,7 +14,10 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc"
+    "patch": "npm version patch",
+    "build": "tsc",
+    "prepublishOnly": "yarn build",
+    "release": "npm publish --access public"
   },
   "dependencies": {
     "countries-and-timezones": "^3.10.0",
