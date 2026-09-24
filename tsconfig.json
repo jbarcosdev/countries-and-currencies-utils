@@ -12,7 +12,7 @@
     "moduleResolution": "nodenext",
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "sourceMap": true,
+    "sourceMap": false,
     "noImplicitAny": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
