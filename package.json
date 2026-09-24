@@ -14,7 +14,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsc && tsc-alias"
+    "build": "tsc"
   },
   "dependencies": {
     "countries-and-timezones": "^3.8.0",
