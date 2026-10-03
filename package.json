@@ -1,7 +1,7 @@
 {
   "name": "countries-and-currencies-utils",
   "version": "0.3.1",
-  "description": "Countries and currencies utils",
+  "description": "Deprecated, use iso-data instead",
   "author": {
     "name": "Jose Barcos",
     "email": "jose@openloops.xyz",
