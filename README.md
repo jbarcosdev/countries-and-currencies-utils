@@ -1,6 +1,6 @@
 # countries-and-currencies-utils
 
-Small, dependency-light utilities to work with countries, currencies, languages and timezones. Go from a country code, a currency code or a timezone to the data your app actually needs: names, native names, symbols, languages and offsets.
+Small, zero-dependency utilities to work with countries, currencies, languages and timezones. Go from a country code, a currency code or a timezone to the data your app actually needs: names, native names, symbols, languages and offsets.
 
 [![npm version](https://img.shields.io/npm/v/countries-and-currencies-utils.svg)](https://www.npmjs.com/package/countries-and-currencies-utils)
 [![npm downloads](https://img.shields.io/npm/dw/countries-and-currencies-utils.svg)](https://www.npmjs.com/package/countries-and-currencies-utils)
@@ -9,10 +9,11 @@ Small, dependency-light utilities to work with countries, currencies, languages 
 
 - Country data (name, local name, main language and currency) from an ISO 3166-1 alpha-2 code
 - Localized country names in any language, powered by `Intl.DisplayNames`
-- Currency data (ISO code, label, symbol, native name) from a country code or a currency code
+- Currency data (ISO code, label, symbol, native name) from a country code or a currency code, all synchronous
 - Language data (English name and native name) from an ISO 639-1 code
 - Country code lookup from an IANA timezone
 - Current UTC offset (in minutes) for any IANA timezone
+- Zero runtime dependencies and a tiny bundle: the dataset is generated at build time from GeoNames and the rest comes from the platform's `Intl`
 - Written in TypeScript, fully typed
 - Safe by design: every function returns `undefined` (or `0` for offsets) instead of throwing on invalid input
 
@@ -37,7 +38,7 @@ import {
     getCountryDataFromCountryCode,
     getCountryNameFromCountryCode,
     getCurrencyDataFromCountryCode,
-    getCurrencyDataFromCurrencyCodeAsync,
+    getCurrencyDataFromCurrencyCode,
     getLanguageFromLanguageCode,
     getCountryISOCodeFromTimezone,
     getTimezoneOffset
@@ -46,7 +47,7 @@ import {
 const country = getCountryDataFromCountryCode('US')
 const countryName = getCountryNameFromCountryCode('US', 'fr')
 const currency = getCurrencyDataFromCountryCode('US')
-const usd = await getCurrencyDataFromCurrencyCodeAsync('USD')
+const usd = getCurrencyDataFromCurrencyCode('USD')
 const language = getLanguageFromLanguageCode('en')
 const countryCode = getCountryISOCodeFromTimezone('America/New_York')
 const offset = getTimezoneOffset('America/New_York')
@@ -127,19 +128,21 @@ getCurrencyDataFromCountryCode('GB')
 
 Returns `{ isoCode: string; label: string; nativeName: string } | undefined`.
 
-### `getCurrencyDataFromCurrencyCodeAsync(currencyCode)`
+### `getCurrencyDataFromCurrencyCode(currencyCode)`
 
-Returns detailed currency data from an ISO 4217 currency code, including its symbol. This function is asynchronous.
+Returns detailed currency data from an ISO 4217 currency code, including its symbol. The code is case insensitive.
 
 ```ts
-const eur = await getCurrencyDataFromCurrencyCodeAsync('EUR')
+const eur = getCurrencyDataFromCurrencyCode('EUR')
 ```
 
-Returns `Promise<{ isoCode: string; label: string; symbol: string; nativeName: string } | undefined>`.
+Returns `{ isoCode: string; label: string; symbol: string; nativeName: string } | undefined`. Returns `undefined` for unknown codes.
+
+`getCurrencyDataFromCurrencyCodeAsync` is still exported as a deprecated wrapper that returns the same data inside a `Promise`, so existing code keeps working.
 
 ### `getCurrencyNativeName(currencyCode)`
 
-Returns the native name of a currency, for example how the currency is called in the countries that use it.
+Returns the name of a currency in the main language of the most populated country that uses it.
 
 ```ts
 getCurrencyNativeName('JPY')
@@ -179,12 +182,28 @@ const codes = ['US', 'CA', 'GB', 'DE', 'JP']
 const options = codes.map(code => ({ value: code, label: getCountryNameFromCountryCode(code, 'fr') }))
 ```
 
-## Dependencies
+## Data
 
-- [`countries-and-timezones`](https://www.npmjs.com/package/countries-and-timezones) for timezone to country lookups
-- [`country-currency-utils`](https://www.npmjs.com/package/country-currency-utils) for currency details and symbols
+The package has no runtime dependencies. Its dataset is generated at build time into `src/data` from two files published by [GeoNames](https://www.geonames.org/):
 
-Country, language and name lookups based on `Intl.DisplayNames` depend on the ICU data of the runtime (Node.js 14+ and all modern browsers).
+- `countryInfo.txt`: country names, currencies and languages
+- `timeZones.txt`: IANA timezones and the country each one belongs to
+
+Country, language and currency names in other languages, and currency symbols, are resolved at runtime with `Intl`. This means the exact strings can vary slightly between Node.js versions, since they depend on the ICU data of the runtime. Both canonical timezone names (`Asia/Kolkata`) and the legacy names some runtimes still report (`Asia/Calcutta`) are supported.
+
+GeoNames data is licensed under [Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/). This package includes data from GeoNames.
+
+## Updating the data
+
+The raw GeoNames files are committed in `data-sources/`, and every build regenerates the dataset from them, so builds never need network access.
+
+```bash
+yarn data:fetch
+yarn data:build
+yarn data:update
+```
+
+`data:fetch` downloads the latest files into `data-sources/`, `data:build` regenerates `src/data/countries-db.ts`, `src/data/currencies-db.ts` and `src/data/timezones-db.ts`, and `data:update` runs both. Review the git diff before releasing. The generated files should not be edited by hand.
 
 ## Contributing
 
@@ -193,6 +212,8 @@ Issues and pull requests are welcome at [github.com/jbarcosdev/countries-and-cur
 1. Fork the repository
 2. Create your branch: `git checkout -b feature/my-feature`
 3. Commit your changes and open a pull request
+
+To refresh the dataset, run `yarn data:update` and include the resulting diff.
 
 ## License
 

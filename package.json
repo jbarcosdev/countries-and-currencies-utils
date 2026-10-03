@@ -14,19 +14,18 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --minify && tsc --emitDeclarationOnly",
+    "data:fetch": "node scripts/fetch-data.mjs",
+    "data:build": "node scripts/build-data.mjs",
+    "data:update": "yarn data:fetch && yarn data:build",
+    "build": "yarn data:build && tsup src/index.ts --format cjs,esm --minify && tsc --emitDeclarationOnly",
     "prepublishOnly": "yarn build",
     "check-size": "npm pack --dry-run",
     "release": "npm version patch && npm publish --access public"
   },
-  "dependencies": {
-    "countries-and-timezones": "^3.10.0",
-    "country-currency-utils": "^6.0.0"
-  },
   "devDependencies": {
-    "@types/node": "^26.6.2",
+    "@types/node": "^26.6.4",
     "tsup": "^8.5.1",
-    "typescript": "^6"
+    "typescript": "^6.0.3"
   },
   "engines": {
     "node": ">=22.0.0"

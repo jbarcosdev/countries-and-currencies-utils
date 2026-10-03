@@ -419,12 +419,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^26.6.2":
-  version: 26.6.2
-  resolution: "@types/node@npm:26.6.2"
+"@types/node@npm:^26.6.4":
+  version: 26.6.4
+  resolution: "@types/node@npm:26.6.4"
   dependencies:
     undici-types: "npm:~8.9.0"
-  checksum: 10c0/bb411ff5863a79a28ffa4ebadf2499d44046aa114d25a7a6c78f57def118123a0a7dea99e8fe38849099e9dba2b41b8853a7a282037618559f58653c35e7c5c5
+  checksum: 10c0/094e7362df9200ba4c2da09131ca3b5d1aa51535a268a24e4ee2546d9c5a323d1d30cbdaaaa3db7ef8b2387572d1f9edabb11538ab7a09d3bca33ae5cddc2b1b
   languageName: node
   linkType: hard
 
@@ -510,27 +510,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "countries-and-currencies-utils@workspace:."
   dependencies:
-    "@types/node": "npm:^26.6.2"
-    countries-and-timezones: "npm:^3.10.0"
-    country-currency-utils: "npm:^6.0.0"
+    "@types/node": "npm:^26.6.4"
     tsup: "npm:^8.5.1"
-    typescript: "npm:^6"
+    typescript: "npm:^6.0.3"
   languageName: unknown
   linkType: soft
-
-"countries-and-timezones@npm:^3.10.0":
-  version: 3.10.0
-  resolution: "countries-and-timezones@npm:3.10.0"
-  checksum: 10c0/94d71134a76c6f1fd7f938c46243ee0e055590e9e59b94d750ce17f080cf27e5e06c72ec414ef5872e826120d11aaa712e62a7bdf1dd6fae602139f3cc3e679a
-  languageName: node
-  linkType: hard
-
-"country-currency-utils@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "country-currency-utils@npm:6.0.0"
-  checksum: 10c0/d668d43378d5350a774c76e7298d571c1fa1ef5f9c54a516f6912c5ca23e649f8ba25a951f3120b70aec45f2e300323dae48576855996c913643213d4485dc48
-  languageName: node
-  linkType: hard
 
 "debug@npm:^4.4.0":
   version: 4.4.3
@@ -1140,7 +1124,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^6":
+"typescript@npm:^6.0.3":
   version: 6.0.3
   resolution: "typescript@npm:6.0.3"
   bin:
@@ -1150,7 +1134,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^6#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A^6.0.3#optional!builtin<compat/typescript>":
   version: 6.0.3
   resolution: "typescript@patch:typescript@npm%3A6.0.3#optional!builtin<compat/typescript>::version=6.0.3&hash=5786d5"
   bin:
