@@ -1,0 +1,14 @@
+# package directories
+node_modules
+
+# ignore local files
+.*
+
+# don't ignore important configuration files
+!.gitignore
+!.github/ 
+!.nvmrc
+!.yarnrc.yml
+
+# distribution folder
+dist/
