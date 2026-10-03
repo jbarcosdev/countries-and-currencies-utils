@@ -205,15 +205,24 @@ yarn data:update
 
 `data:fetch` downloads the latest files into `data-sources/`, `data:build` regenerates `src/data/countries-db.ts`, `src/data/currencies-db.ts` and `src/data/timezones-db.ts`, and `data:update` runs both. Review the git diff before releasing. The generated files should not be edited by hand.
 
+## Testing
+
+```bash
+yarn test
+```
+
+This builds the package and runs the suite with the test runner built into Node.js, so no extra tooling is needed. Besides checking known cases, the suite verifies the whole dataset: every country, currency and timezone must resolve complete data, and no language or currency name may fall back to its raw code. That makes it the safety net after running `yarn data:update`. The tests also run automatically before `npm publish`.
+
 ## Contributing
 
 Issues and pull requests are welcome at [github.com/jbarcosdev/countries-and-currencies-utils](https://github.com/jbarcosdev/countries-and-currencies-utils).
 
 1. Fork the repository
 2. Create your branch: `git checkout -b feature/my-feature`
-3. Commit your changes and open a pull request
+3. Make your changes and run `yarn test`
+4. Commit your changes and open a pull request
 
-To refresh the dataset, run `yarn data:update` and include the resulting diff.
+To refresh the dataset, run `yarn data:update`, then `yarn test`, and include the resulting diff.
 
 ## License
 

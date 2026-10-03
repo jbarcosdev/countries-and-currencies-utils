@@ -18,7 +18,8 @@
     "data:build": "node scripts/build-data.mjs",
     "data:update": "yarn data:fetch && yarn data:build",
     "build": "yarn data:build && tsup src/index.ts --format cjs,esm --minify && tsc --emitDeclarationOnly",
-    "prepublishOnly": "yarn build",
+    "test": "yarn build && node --test \"test/**/*.test.mjs\"",
+    "prepublishOnly": "yarn test",
     "check-size": "npm pack --dry-run",
     "release": "npm version patch && npm publish --access public"
   },

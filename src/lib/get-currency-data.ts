@@ -42,8 +42,7 @@ export function getCurrencyNativeName (currencyCode: CurrencyCode | (string & {}
     if (!currencyCode || typeof currencyCode !== 'string') return undefined
 
     const code = currencyCode.toUpperCase()
-    const language = (currencies as Record<string, { language: string }>)[code]?.language
-    if (!language) return undefined
+    const language = (currencies as Record<string, { language: string }>)[code]?.language ?? 'en'
 
-    return getCurrencyName(code, language)
+    return getCurrencyName(code, language) ?? getCurrencyName(code, 'en')
 }

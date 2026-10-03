@@ -9,6 +9,21 @@ const obsoleteCountries = new Set(['AN', 'CS'])
 
 const readRows = async file => (await readFile(join(sources, file), 'utf8')).split(/\r?\n/).filter(line => line.trim() !== '').map(line => line.split('\t'))
 
+const languageNames = new Intl.DisplayNames(['en'], { type: 'language', fallback: 'none' })
+
+const isKnownLanguage = code => {
+    try {
+        return languageNames.of(code) !== undefined
+    } catch {
+        return false
+    }
+}
+
+const pickLanguage = languages => {
+    const codes = languages.split(',').map(item => item.split('-')[0].trim().toLowerCase()).filter(Boolean)
+    return codes.find(isKnownLanguage) ?? codes[0] ?? 'en'
+}
+
 const inline = value => `{ ${Object.entries(value).map(([key, item]) => `${JSON.stringify(key)}: ${JSON.stringify(item)}`).join(', ')} }`
 
 const render = (typeName, constName, object, format) => {
@@ -30,7 +45,7 @@ for (const row of countryRows) {
     const currency = row[10].trim().toUpperCase()
     if (!name || !/^[A-Z]{3}$/.test(currency)) continue
 
-    const language = row[15].split(',')[0].split('-')[0].trim().toLowerCase() || 'en'
+    const language = pickLanguage(row[15])
     const population = Number(row[7]) || 0
 
     countries[code] = { name, language, currency }

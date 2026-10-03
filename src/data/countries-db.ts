@@ -241,7 +241,7 @@ export const countries = {
     "VI": { "name": "U.S. Virgin Islands", "language": "en", "currency": "USD" },
     "VN": { "name": "Vietnam", "language": "vi", "currency": "VND" },
     "VU": { "name": "Vanuatu", "language": "bi", "currency": "VUV" },
-    "WF": { "name": "Wallis and Futuna", "language": "wls", "currency": "XPF" },
+    "WF": { "name": "Wallis and Futuna", "language": "fr", "currency": "XPF" },
     "WS": { "name": "Samoa", "language": "sm", "currency": "WST" },
     "XK": { "name": "Kosovo", "language": "sq", "currency": "EUR" },
     "YE": { "name": "Yemen", "language": "ar", "currency": "YER" },
