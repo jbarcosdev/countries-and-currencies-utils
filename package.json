@@ -1,6 +1,6 @@
 {
   "name": "countries-and-currencies-utils",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Deprecated, use iso-data instead",
   "author": {
     "name": "Jose Barcos",
