@@ -21,7 +21,8 @@
     "test": "yarn build && node --test \"test/**/*.test.mjs\"",
     "prepublishOnly": "yarn test",
     "check-size": "npm pack --dry-run",
-    "release": "npm version patch && npm publish --access public"
+    "release": "npm version patch && npm publish --access public",
+    "push": "git push --follow-tags"
   },
   "devDependencies": {
     "@types/node": "^26.6.4",
